@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checklist Drone</title>
+
+  <style>
+    :root {
+      --bleu: #2563eb;
+      --bleu-fonce: #1e3a8a;
+      --fond: #f1f5f9;
+      --blanc: #ffffff;
+      --texte: #1e293b;
+      --gris: #64748b;
+      --bordure: #cbd5e1;
+      --danger: #dc2626;
+      --vert: #15803d;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      color: var(--texte);
+      background: var(--fond);
+      line-height: 1.5;
+    }
+
+    header {
+      padding: 1.5rem 1rem;
+      color: white;
+      text-align: center;
+      background: linear-gradient(135deg, var(--bleu-fonce), var(--bleu));
+    }
+
+    header h1 {
+      margin: 0 0 0.3rem;
+      font-size: clamp(1.3rem, 4vw, 2rem);
+    }
+
+    header p {
+      margin: 0;
+      opacity: 0.9;
+      font-size: 0.9rem;
+    }
+
+    main {
+      width: min(1200px, 94%);
+      margin: 1rem auto 2rem;
+    }
+
+    .notice {
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      border-left: 4px solid #f59e0b;
+      border-radius: 6px;
+      background: #fffbeb;
+      color: #78350f;
+      font-size: 0.9rem;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid var(--bordure);
+    }
+
+    .tab-button {
+      padding: 0.7rem 1rem;
+      border: none;
+      border-radius: 6px 6px 0 0;
+      color: var(--texte);
+      background: #e2e8f0;
+      font: inherit;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .tab-button.active {
+      color: white;
+      background: var(--bleu);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border: 1px solid var(--bordure);
+      border-radius: 10px;
+      background: var(--blanc);
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      padding-bottom: 0.6rem;
+      border-bottom: 2px solid #e2e8f0;
+      color: var(--bleu-fonce);
+      font-size: 1.1rem;
+    }
+
+    .checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .checklist li {
+      display: flex;
+      gap: 0.6rem;
+      align-items: flex-start;
+    }
+
+    .checklist input[type="checkbox"] {
+      width: 1.1rem;
+      height: 1.1rem;
+      margin-top: 0.15rem;
+      accent-color: var(--vert);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .checklist input:checked + label {
+      color: var(--gris);
+      text-decoration: line-through;
+    }
+
+    .checklist label {
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.8rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 0.6rem;
+      border: 1px solid var(--bordure);
+      border-radius: 6px;
+      color: var(--texte);
+      background: white;
+      font: inherit;
+      font-size: 1rem;
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: 2px solid rgba(37, 99, 235, 0.25);
+      border-color: var(--bleu);
+    }
+
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+
+    button {
+      padding: 0.6rem 1rem;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      background: var(--bleu);
+      font: inherit;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    button.secondary {
+      color: var(--texte);
+      background: #e2e8f0;
+    }
+
+    button.secondary:hover {
+      background: #cbd5e1;
+    }
+
+    button.danger {
+      background: var(--danger);
+    }
+
+    button.danger:hover {
+      background: #b91c1c;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      min-width: 700px;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    th,
+    td {
+      padding: 0.6rem;
+      border-bottom: 1px solid var(--bordure);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: white;
+      background: var(--bleu-fonce);
+      white-space: nowrap;
+    }
+
+    tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    .empty-message {
+      padding: 1rem;
+      color: var(--gris);
+      text-align: center;
+      font-style: italic;
+    }
+
+    .save-info {
+      margin-top: 0.8rem;
+      color: var(--vert);
+      font-size: 0.85rem;
+    }
+
+    .success-message {
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      border-left: 4px solid var(--vert);
+      border-radius: 6px;
+      background: #f0fdf4;
+      color: #166534;
+      display: none;
+    }
+
+    .success-message.show {
+      display: block;
+    }
+
+    .loading {
+      text-align: center;
+      color: var(--gris);
+      padding: 1rem;
+    }
+
+    footer {
+      padding: 1rem;
+      color: var(--gris);
+      text-align: center;
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 600px) {
+      main {
+        width: 96%;
+      }
+
+      .card {
+        padding: 0.8rem;
+      }
+
+      .tab-button {
+        flex: 1 1 48%;
+        padding: 0.6rem 0.8rem;
+        font-size: 0.85rem;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      table {
+        min-width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>✈️ Checklist Drone</h1>
+    <p>Contrôles et historique de vol</p>
+  </header>
+
+  <main>
+    <div class="notice">
+      <strong>ℹ️ Attention :</strong> adaptez cette checklist à votre drone et à la réglementation locale.
+    </div>
+
+    <div class="success-message" id="successMessage"></div>
+
+    <nav class="tabs">
+      <button class="tab-button active" data-tab="checklistTab">Checklist</button>
+      <button class="tab-button" data-tab="flightsTab">Historique des vols</button>
+    </nav>
+
+    <!-- Onglet Checklist -->
+    <section id="checklistTab" class="tab-content active">
+      <div class="grid">
+        <article class="card">
+          <h2>Inspection visuelle</h2>
+          <ul class="checklist">
+            <li><input type="checkbox" id="inspection-1"><label for="inspection-1">Fuselage : fissures ou jeu.</label></li>
+            <li><input type="checkbox" id="inspection-2"><label for="inspection-2">Hélices : rotation fluide.</label></li>
+            <li><input type="checkbox" id="inspection-3"><label for="inspection-3">Vis et fixations serrées.</label></li>
+            <li><input type="checkbox" id="inspection-4"><label for="inspection-4">Hélices sans dommage.</label></li>
+            <li><input type="checkbox" id="inspection-5"><label for="inspection-5">Câbles en bon état.</label></li>
+            <li><input type="checkbox" id="inspection-6"><label for="inspection-6">Verrous d'hélices en place.</label></li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>Calibration boussole</h2>
+          <ul class="checklist">
+            <li><input type="checkbox" id="compass-1"><label for="compass-1">Retirer objets métalliques.</label></li>
+            <li><input type="checkbox" id="compass-2"><label for="compass-2">Allumer la radiocommande.</label></li>
+            <li><input type="checkbox" id="compass-3"><label for="compass-3">Drone dehors, surface non métallique.</label></li>
+            <li><input type="checkbox" id="compass-4"><label for="compass-4">6 satellites minimum.</label></li>
+            <li><input type="checkbox" id="compass-5"><label for="compass-5">Lancer calibration.</label></li>
+            <li><input type="checkbox" id="compass-6"><label for="compass-6">Rotation horaire 5-7 sec.</label></li>
+            <li><input type="checkbox" id="compass-7"><label for="compass-7">Incliner et répéter.</label></li>
+            <li><input type="checkbox" id="compass-8"><label for="compass-8">Calibration terminée.</label></li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>Avant décollage</h2>
+          <ul class="checklist">
+            <li><input type="checkbox" id="preflight-1"><label for="preflight-1">Batteries pleines.</label></li>
+            <li><input type="checkbox" id="preflight-2"><label for="preflight-2">Pas d'interférences.</label></li>
+            <li><input type="checkbox" id="preflight-3"><label for="preflight-3">Boussole calibrée.</label></li>
+            <li><input type="checkbox" id="preflight-4"><label for="preflight-4">Équipement installé.</label></li>
+            <li><input type="checkbox" id="preflight-5"><label for="preflight-5">Position sécurisée.</label></li>
+            <li><input type="checkbox" id="preflight-6"><label for="preflight-6">Espace aérien vérifié.</label></li>
+            <li><input type="checkbox" id="preflight-7"><label for="preflight-7">Commandes neutres.</label></li>
+            <li><input type="checkbox" id="preflight-8"><label for="preflight-8">Identification OK.</label></li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>Pendant le vol</h2>
+          <ul class="checklist">
+            <li><input type="checkbox" id="flight-1"><label for="flight-1">Doigts sur la radio.</label></li>
+            <li><input type="checkbox" id="flight-2"><label for="flight-2">Drone à vue.</label></li>
+            <li><input type="checkbox" id="flight-3"><label for="flight-3">Altitude optimale.</label></li>
+            <li><input type="checkbox" id="flight-4"><label for="flight-4">Éviter obstacles.</label></li>
+            <li><input type="checkbox" id="flight-5"><label for="flight-5">Pas de gêne secours.</label></li>
+            <li><input type="checkbox" id="flight-6"><label for="flight-6">Aéronef habité : atterrir.</label></li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>Atterrissage</h2>
+          <ul class="checklist">
+            <li><input type="checkbox" id="landing-1"><label for="landing-1">Zone inspectée.</label></li>
+            <li><input type="checkbox" id="landing-2"><label for="landing-2">Distance obstacles.</label></li>
+            <li><input type="checkbox" id="landing-3"><label for="landing-3">Alimentation coupée.</label></li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>Après le vol</h2>
+          <ul class="checklist">
+            <li><input type="checkbox" id="postflight-1"><label for="postflight-1">Tour contrôle informée.</label></li>
+            <li><input type="checkbox" id="postflight-2"><label for="postflight-2">Équipements éteints.</label></li>
+            <li><input type="checkbox" id="postflight-3"><label for="postflight-3">Inspection dommages.</label></li>
+            <li><input type="checkbox" id="postflight-4"><label for="postflight-4">Batteries chargées.</label></li>
+          </ul>
+        </article>
+      </div>
+
+      <button type="button" class="secondary" id="resetChecklist" style="margin-top: 1rem;">
+        Réinitialiser les cases
+      </button>
+    </section>
+
+    <!-- Onglet Historique -->
+    <section id="flightsTab" class="tab-content">
+      <article class="card">
+        <h2>Configuration Dropbox</h2>
+        <div class="form-grid">
+          <div class="form-group full">
+            <label for="dropboxToken">Token Dropbox *</label>
+            <input 
+              type="password" 
+              id="dropboxToken" 
+              placeholder="Collez votre token Dropbox ici"
+              required>
+            <p class="save-info">
+              ℹ️ Votre token est stocké localement et jamais envoyé à un serveur
+            </p>
+          </div>
+        </div>
+        <div class="actions">
+          <button type="button" id="saveToken">Enregistrer le token</button>
+          <button type="button" class="secondary" id="clearToken">Effacer le token</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>Enregistrer un vol</h2>
+
+        <form id="flightForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="location">Lieu *</label>
+              <input type="text" id="location" required>
+            </div>
+
+            <div class="form-group">
+              <label for="date">Date *</label>
+              <input type="date" id="date" required>
+            </div>
+
+            <div class="form-group">
+              <label for="startTime">Début *</label>
+              <input type="time" id="startTime" required>
+            </div>
+
+            <div class="form-group">
+              <label for="endTime">Fin *</label>
+              <input type="time" id="endTime" required>
+            </div>
+
+            <div class="form-group full">
+              <label for="designation">Désignation *</label>
+              <input type="text" id="designation" placeholder="Ex. Inspection toiture..." required>
+            </div>
+
+            <div class="form-group full">
+              <label for="comments">Commentaires</label>
+              <textarea id="comments" placeholder="Conditions météo, observations..."></textarea>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button type="submit">Enregistrer le vol</button>
+            <button type="reset" class="secondary">Réinitialiser</button>
+          </div>
+
+          <p class="save-info">
+            ✓ Les données sont sauvegardées dans Dropbox
+          </p>
+        </form>
+      </article>
+
+      <article class="card">
+        <h2>Historique de vol</h2>
+
+        <div id="loadingMessage" class="loading">Chargement...</div>
+
+        <div class="table-wrapper" id="tableContainer" style="display: none;">
+          <table>
+            <thead>
+              <tr>
+                <th>Lieu</th>
+                <th>Date</th>
+                <th>Début</th>
+                <th>Fin</th>
+                <th>Désignation</th>
+                <th>Commentaires</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="flightHistory"></tbody>
+          </table>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="danger" id="clearHistory">
+            Effacer tout l'historique
+          </button>
+          <button type="button" class="secondary" id="exportData">
+            📥 Télécharger les données
+          </button>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    Checklist générique à adapter avant utilisation.
+  </footer>
+
+  <script>
+    const tabButtons = document.querySelectorAll(".tab-button");
+    const tabContents = document.querySelectorAll(".tab-content");
+    const form = document.getElementById("flightForm");
+    const historyBody = document.getElementById("flightHistory");
+    const clearHistoryButton = document.getElementById("clearHistory");
+    const resetChecklistButton = document.getElementById("resetChecklist");
+    const exportButton = document.getElementById("exportData");
+    const successMessage = document.getElementById("successMessage");
+    const dropboxTokenInput = document.getElementById("dropboxToken");
+    const saveTokenButton = document.getElementById("saveToken");
+    const clearTokenButton = document.getElementById("clearToken");
+    const loadingMessage = document.getElementById("loadingMessage");
+    const tableContainer = document.getElementById("tableContainer");
+
+    const STORAGE_FLIGHTS = "droneFlights";
+    const STORAGE_CHECKLIST = "droneChecklist";
+    const STORAGE_TOKEN = "dropboxToken";
+
+    let flights = JSON.parse(localStorage.getItem(STORAGE_FLIGHTS)) || [];
+
+    /*
+     * Gestion des onglets
+     */
+    tabButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        const targetId = button.dataset.tab;
+
+        tabButtons.forEach(btn => btn.classList.remove("active"));
+        tabContents.forEach(content => content.classList.remove("active"));
+
+        button.classList.add("active");
+        document.getElementById(targetId).classList.add("active");
+
+        if (targetId === "flightsTab") {
+          chargerVols();
+        }
+      });
+    });
+
+    /*
+     * Sécurité : échapper le HTML
+     */
+    function securiserTexte(texte) {
+      return String(texte)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    /*
+     * Afficher un message de succès
+     */
+    function afficherSucces(message) {
+      successMessage.textContent = "✓ " + message;
+      successMessage.classList.add("show");
+
+      setTimeout(() => {
+        successMessage.classList.remove("show");
+      }, 3000);
+    }
+
+    /*
+     * Gestion du token Dropbox
+     */
+    function chargerToken() {
+      const token = localStorage.getItem(STORAGE_TOKEN);
+      if (token) {
+        dropboxTokenInput.value = token;
+      }
+    }
+
+    saveTokenButton.addEventListener("click", () => {
+      const token = dropboxTokenInput.value.trim();
+
+      if (!token) {
+        alert("Veuillez entrer un token Dropbox.");
+        return;
+      }
+
+      localStorage.setItem(STORAGE_TOKEN, token);
+      afficherSucces("Token Dropbox enregistré !");
+    });
+
+    clearTokenButton.addEventListener("click", () => {
+      if (confirm("Êtes-vous sûr de vouloir effacer le token ?")) {
+        localStorage.removeItem(STORAGE_TOKEN);
+        dropboxTokenInput.value = "";
+        afficherSucces("Token effacé.");
+      }
+    });
+
+    /*
+     * Récupérer le token
+     */
+    function obtenirToken() {
+      return localStorage.getItem(STORAGE_TOKEN);
+    }
+
+    /*
+     * Appel API Dropbox
+     */
+    async function appelDropbox(methode, chemin, contenu = null) {
+      const token = obtenirToken();
+
+      if (!token) {
+        throw new Error("Token Dropbox non configuré. Allez dans l'onglet Historique et configurez votre token.");
+      }
+
+      const options = {
+        method: methode,
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      };
+
+      if (methode === "POST" && contenu) {
+        options.body = JSON.stringify({
+          path: chemin,
+          mode: { ".tag": "overwrite" },
+          autorename: false,
+          mute: false,
+          strict_conflict: false
+        });
+
+        // Ajouter le contenu du fichier
+        const response = await fetch("https://content.dropboxapi.com/2/files/upload", {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Dropbox-API-Arg": JSON.stringify({
+              path: chemin,
+              mode: { ".tag": "overwrite" },
+              autorename: false,
+              mute: false,
+              strict_conflict: false
+            }),
+            "Content-Type": "application/octet-stream"
+          },
+          body: contenu
+        });
+
+        if (!response.ok) {
+          throw new Error(`Erreur Dropbox: ${response.status}`);
+        }
+
+        return response.json();
+      }
+
+      if (methode === "GET") {
+        const response = await fetch("https://content.dropboxapi.com/2/files/download", {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Dropbox-API-Arg": JSON.stringify({ path: chemin })
+          }
+        });
+
+        if (response.status === 409) {
+          return null; // Fichier n'existe pas
+        }
+
+        if (!response.ok) {
+          throw new Error(`Erreur Dropbox: ${response.status}`);
+        }
+
+        const texte = await response.text();
+        return JSON.parse(texte);
+      }
+
+      if (methode === "DELETE") {
+        const response = await fetch("https://www.dropboxapi.com/2/files/delete_v2", {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ path: chemin })
+        });
+
+        if (!response.ok) {
+          throw new Error(`Erreur Dropbox: ${response.status}`);
+        }
+
+        return response.json();
+      }
+    }
+
+    /*
+     * Charger les vols depuis Dropbox
+     */
+    async function chargerVols() {
+      loadingMessage.style.display = "block";
+      tableContainer.style.display = "none";
+
+      try {
+        const token = obtenirToken();
+
+        if (!token) {
+          historyBody.innerHTML = `
+            <tr>
+              <td colspan="7" class="empty-message">
+                ⚠️ Configurez d'abord votre token Dropbox en haut de cette page.
+              </td>
+            </tr>
+          `;
+          loadingMessage.style.display = "none";
+          tableContainer.style.display = "block";
+          return;
+        }
+
+        const vols = await appelDropbox("GET", "/drone/historique-vols.json");
+
+        if (vols) {
+          flights = vols;
+        } else {
+          flights = [];
+        }
+
+        afficherVols();
+      } catch (erreur) {
+        console.error(erreur);
+        historyBody.innerHTML = `
+          <tr>
+            <td colspan="7" class="empty-message">
+              ❌ Erreur : ${erreur.message}
+            </td>
+          </tr>
+        `;
+      }
+
+      loadingMessage.style.display = "none";
+      tableContainer.style.display = "block";
+    }
+
+    /*
+     * Afficher les vols
+     */
+    function afficherVols() {
+      historyBody.innerHTML = "";
+
+      if (flights.length === 0) {
+        historyBody.innerHTML = `
+          <tr>
+            <td colspan="7" class="empty-message">
+              Aucun vol enregistré.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      flights.forEach((vol, index) => {
+        const ligne = document.createElement("tr");
+
+        ligne.innerHTML = `
+          <td>${securiserTexte(vol.lieu)}</td>
+          <td>${securiserTexte(vol.date)}</td>
+          <td>${securiserTexte(vol.heureDebut)}</td>
+          <td>${securiserTexte(vol.heureFin)}</td>
+          <td>${securiserTexte(vol.designation)}</td>
+          <td>${securiserTexte(vol.commentaires || "-")}</td>
+          <td>
+            <button
+              type="button"
+              class="danger"
+              onclick="supprimerVol(${index})"
+              style="padding: 0.4rem 0.7rem; font-size: 0.85rem;">
+              Supprimer
+            </button>
+          </td>
+        `;
+
+        historyBody.appendChild(ligne);
+      });
+    }
+
+    /*
+     * Ajouter un vol
+     */
+    form.addEventListener("submit", async event => {
+      event.preventDefault();
+
+      const heureDebut = document.getElementById("startTime").value;
+      const heureFin = document.getElementById("endTime").value;
+
+      if (heureFin < heureDebut) {
+        alert("L'heure de fin doit être postérieure à l'heure de début.");
+        return;
+      }
+
+      const vol = {
+        lieu: document.getElementById("location").value.trim(),
+        date: document.getElementById("date").value,
+        heureDebut,
+        heureFin,
+        designation: document.getElementById("designation").value.trim(),
+        commentaires: document.getElementById("comments").value.trim()
+      };
+
+      try {
+        flights.push(vol);
+
+        await appelDropbox(
+          "POST",
+          "/drone/historique-vols.json",
+          JSON.stringify(flights, null, 2)
+        );
+
+        form.reset();
+        afficherSucces("Vol enregistré dans Dropbox ✓");
+        afficherVols();
+      } catch (erreur) {
+        console.error(erreur);
+        flights.pop(); // Annuler l'ajout
+        alert("Erreur : " + erreur.message);
+      }
+    });
+
+    /*
+     * Supprimer un vol
+     */
+    async function supprimerVol(index) {
+      if (!confirm("Supprimer ce vol ?")) {
+        return;
+      }
+
+      try {
+        flights.splice(index, 1);
+
+        await appelDropbox(
+          "POST",
+          "/drone/historique-vols.json",
+          JSON.stringify(flights, null, 2)
+        );
+
+        afficherSucces("Vol supprimé.");
+        afficherVols();
+      } catch (erreur) {
+        console.error(erreur);
+        alert("Erreur : " + erreur.message);
+      }
+    }
+
+    /*
+     * Effacer tout l'historique
+     */
+    clearHistoryButton.addEventListener("click", async () => {
+      if (flights.length === 0) {
+        return;
+      }
+
+      if (confirm("Êtes-vous sûr ? Cette action est irréversible.")) {
+        try {
+          flights = [];
+
+          await appelDropbox(
+            "POST",
+            "/drone/historique-vols.json",
+            JSON.stringify([], null, 2)
+          );
+
+          afficherSucces("Historique effacé.");
+          afficherVols();
+        } catch (erreur) {
+          console.error(erreur);
+          alert("Erreur : " + erreur.message);
+        }
+      }
+    });
+
+    /*
+     * Télécharger les données
+     */
+    exportButton.addEventListener("click", () => {
+      const donnees = {
+        vols: flights,
+        dateExport: new Date().toLocaleString("fr-FR")
+      };
+
+      const json = JSON.stringify(donnees, null, 2);
+      const blob = new Blob([json], {
+        type: "application/json"
+      });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+
+      a.href = url;
+      a.download = `historique-vols-${new Date().toISOString().split("T")[0]}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      afficherSucces("Données téléchargées !");
+    });
+
+    /*
+     * Sauvegarder la checklist
+     */
+    const checklistInputs = document.querySelectorAll(
+      '.checklist input[type="checkbox"]'
+    );
+
+    function sauvegarderChecklist() {
+      const etat = {};
+
+      checklistInputs.forEach(input => {
+        etat[input.id] = input.checked;
+      });
+
+      localStorage.setItem(STORAGE_CHECKLIST, JSON.stringify(etat));
+    }
+
+    function chargerChecklist() {
+      const etat = JSON.parse(localStorage.getItem(STORAGE_CHECKLIST)) || {};
+
+      checklistInputs.forEach(input => {
+        input.checked = etat[input.id] || false;
+      });
+    }
+
+    checklistInputs.forEach(input => {
+      input.addEventListener("change", sauvegarderChecklist);
+    });
+
+    /*
+     * Réinitialiser la checklist
+     */
+    resetChecklistButton.addEventListener("click", () => {
+      if (confirm("Décocher toutes les cases ?")) {
+        checklistInputs.forEach(input => {
+          input.checked = false;
+        });
+
+        sauvegarderChecklist();
+        afficherSucces("Checklist réinitialisée.");
+      }
+    });
+
+    /*
+     * Initialisation
+     */
+    chargerToken();
+    chargerChecklist();
+  </script>
+</body>
+</html>
