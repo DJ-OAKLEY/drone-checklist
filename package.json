@@ -1,0 +1,19 @@
+{
+  "name": "drone-checklist",
+  "version": "1.0.0",
+  "description": "Checklist et historique de vol pour drone",
+  "main": "serveur.js",
+  "scripts": {
+    "start": "node serveur.js",
+    "dev": "node serveur.js"
+  },
+  "keywords": ["drone", "checklist"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "dropbox": "^10.34.0",
+    "dotenv": "^16.0.3",
+    "cors": "^2.8.5"
+  }
+}
