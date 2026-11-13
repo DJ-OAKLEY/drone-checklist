@@ -26,102 +26,79 @@
 
     <!-- Onglet Checklist -->
     <section id="checklistTab" class="tab-content active">
-      <div class="grid">
-        <article class="card">
-          <h2>Inspection visuelle</h2>
-          <div class="checklist-actions">
-            <button type="button" class="secondary" data-checklist-action="select">Tout sélectionner</button>
-            <button type="button" class="secondary" data-checklist-action="deselect">Tout désélectionner</button>
-          </div>
-          <ul class="checklist">
-            <li><input type="checkbox" id="inspection-1"><label for="inspection-1">Fuselage : fissures ou jeu.</label></li>
-            <li><input type="checkbox" id="inspection-2"><label for="inspection-2">Hélices : rotation fluide.</label></li>
-            <li><input type="checkbox" id="inspection-3"><label for="inspection-3">Vis et fixations serrées.</label></li>
-            <li><input type="checkbox" id="inspection-4"><label for="inspection-4">Hélices sans dommage.</label></li>
-            <li><input type="checkbox" id="inspection-5"><label for="inspection-5">Câbles en bon état.</label></li>
-            <li><input type="checkbox" id="inspection-6"><label for="inspection-6">Verrous d'hélices en place.</label></li>
-          </ul>
-        </article>
+      <article class="card paper-card">
+        <h2>Checklist prévol</h2>
 
-        <article class="card">
-          <h2>Calibration boussole</h2>
-          <div class="checklist-actions">
-            <button type="button" class="secondary" data-checklist-action="select">Tout sélectionner</button>
-            <button type="button" class="secondary" data-checklist-action="deselect">Tout désélectionner</button>
-          </div>
-          <ul class="checklist">
-            <li><input type="checkbox" id="compass-1"><label for="compass-1">Retirer objets métalliques.</label></li>
-            <li><input type="checkbox" id="compass-2"><label for="compass-2">Allumer la radiocommande.</label></li>
-            <li><input type="checkbox" id="compass-3"><label for="compass-3">Drone dehors, surface non métallique.</label></li>
-            <li><input type="checkbox" id="compass-4"><label for="compass-4">6 satellites minimum.</label></li>
-            <li><input type="checkbox" id="compass-5"><label for="compass-5">Lancer calibration.</label></li>
-            <li><input type="checkbox" id="compass-6"><label for="compass-6">Rotation horaire 5-7 sec.</label></li>
-            <li><input type="checkbox" id="compass-7"><label for="compass-7">Incliner et répéter.</label></li>
-            <li><input type="checkbox" id="compass-8"><label for="compass-8">Calibration terminée.</label></li>
-          </ul>
-        </article>
+        <div class="checklist-actions">
+          <button type="button" class="secondary" data-checklist-action="select">Tout sélectionner</button>
+          <button type="button" class="secondary" data-checklist-action="deselect">Tout désélectionner</button>
+        </div>
 
-        <article class="card">
-          <h2>Avant décollage</h2>
-          <div class="checklist-actions">
-            <button type="button" class="secondary" data-checklist-action="select">Tout sélectionner</button>
-            <button type="button" class="secondary" data-checklist-action="deselect">Tout désélectionner</button>
-          </div>
-          <ul class="checklist">
-            <li><input type="checkbox" id="preflight-1"><label for="preflight-1">Batteries pleines.</label></li>
-            <li><input type="checkbox" id="preflight-2"><label for="preflight-2">Pas d'interférences.</label></li>
-            <li><input type="checkbox" id="preflight-3"><label for="preflight-3">Boussole calibrée.</label></li>
-            <li><input type="checkbox" id="preflight-4"><label for="preflight-4">Équipement installé.</label></li>
-            <li><input type="checkbox" id="preflight-5"><label for="preflight-5">Position sécurisée.</label></li>
-            <li><input type="checkbox" id="preflight-6"><label for="preflight-6">Espace aérien vérifié.</label></li>
-            <li><input type="checkbox" id="preflight-7"><label for="preflight-7">Commandes neutres.</label></li>
-            <li><input type="checkbox" id="preflight-8"><label for="preflight-8">Identification OK.</label></li>
-          </ul>
-        </article>
+        <ul class="checklist paper-checklist">
+          <li class="paper-row paper-row-header">
+            <div class="paper-category">Catégorie</div>
+            <div class="paper-tasks">Tâche</div>
+          </li>
 
-        <article class="card">
-          <h2>Pendant le vol</h2>
-          <div class="checklist-actions">
-            <button type="button" class="secondary" data-checklist-action="select">Tout sélectionner</button>
-            <button type="button" class="secondary" data-checklist-action="deselect">Tout désélectionner</button>
-          </div>
-          <ul class="checklist">
-            <li><input type="checkbox" id="flight-1"><label for="flight-1">Doigts sur la radio.</label></li>
-            <li><input type="checkbox" id="flight-2"><label for="flight-2">Drone à vue.</label></li>
-            <li><input type="checkbox" id="flight-3"><label for="flight-3">Altitude optimale.</label></li>
-            <li><input type="checkbox" id="flight-4"><label for="flight-4">Éviter obstacles.</label></li>
-            <li><input type="checkbox" id="flight-5"><label for="flight-5">Pas de gêne secours.</label></li>
-            <li><input type="checkbox" id="flight-6"><label for="flight-6">Aéronef habité : atterrir.</label></li>
-          </ul>
-        </article>
+          <li class="paper-row">
+            <div class="paper-category">Sécurité et environnement</div>
+            <div class="paper-tasks">
+              <label><input type="checkbox" id="env-1"><span>Évaluer les paramètres météo : vent &lt; 43 km/h, risque de pluie, neige ou givre et températures externes : -10°C &lt; T &lt; 40°C</span></label>
+              <label><input type="checkbox" id="env-2"><span>Définir le volume d'évolution</span></label>
+              <label><input type="checkbox" id="env-3"><span>Définir la zone d'exclusion des tiers</span></label>
+              <label><input type="checkbox" id="env-4"><span>Vérifier l'absence d'obstacles et de personnes dans la zone de vol</span></label>
+            </div>
+          </li>
 
-        <article class="card">
-          <h2>Atterrissage</h2>
-          <div class="checklist-actions">
-            <button type="button" class="secondary" data-checklist-action="select">Tout sélectionner</button>
-            <button type="button" class="secondary" data-checklist-action="deselect">Tout désélectionner</button>
-          </div>
-          <ul class="checklist">
-            <li><input type="checkbox" id="landing-1"><label for="landing-1">Zone inspectée.</label></li>
-            <li><input type="checkbox" id="landing-2"><label for="landing-2">Distance obstacles.</label></li>
-            <li><input type="checkbox" id="landing-3"><label for="landing-3">Alimentation coupée.</label></li>
-          </ul>
-        </article>
+          <li class="paper-row">
+            <div class="paper-category">Vérification de l'appareil</div>
+            <div class="paper-tasks">
+              <label><input type="checkbox" id="app-1"><span>Structure : absence de fissures ou cassures</span></label>
+              <label><input type="checkbox" id="app-2"><span>Hélices et moteurs : état, fixations, moteurs tournent librement</span></label>
+              <label><input type="checkbox" id="app-3"><span>Système de détection : propreté et état des caméras et capteurs</span></label>
+              <label><input type="checkbox" id="app-4"><span>Vérifier si la protection de la nacelle de caméra est retirée</span></label>
+              <label><input type="checkbox" id="app-5"><span>Vérifier le cache de l'emplacement de la carte SD</span></label>
+              <label><input type="checkbox" id="app-6"><span>Batterie : état, corrosion, gonflement, fissures ; installation correcte</span></label>
+            </div>
+          </li>
 
-        <article class="card">
-          <h2>Après le vol</h2>
-          <div class="checklist-actions">
-            <button type="button" class="secondary" data-checklist-action="select">Tout sélectionner</button>
-            <button type="button" class="secondary" data-checklist-action="deselect">Tout désélectionner</button>
-          </div>
-          <ul class="checklist">
-            <li><input type="checkbox" id="postflight-1"><label for="postflight-1">Tour contrôle informée.</label></li>
-            <li><input type="checkbox" id="postflight-2"><label for="postflight-2">Équipements éteints.</label></li>
-            <li><input type="checkbox" id="postflight-3"><label for="postflight-3">Inspection dommages.</label></li>
-            <li><input type="checkbox" id="postflight-4"><label for="postflight-4">Batteries chargées.</label></li>
-          </ul>
-        </article>
-      </div>
+          <li class="paper-row">
+            <div class="paper-category">Vérification de la radiocommande</div>
+            <div class="paper-tasks">
+              <label><input type="checkbox" id="rc-1"><span>Niveau de charge &gt; 25%</span></label>
+              <label><input type="checkbox" id="rc-2"><span>Joystick : fonctionnement des joysticks, boutons et molettes, positionnement des antennes</span></label>
+            </div>
+          </li>
+
+          <li class="paper-row">
+            <div class="paper-category">Application DJI Pilot 2</div>
+            <div class="paper-tasks">
+              <label><input type="checkbox" id="dji-1"><span>Allumer la radiocommande puis le drone</span></label>
+              <label><input type="checkbox" id="dji-2"><span>Mise à jour du module de point de décollage</span></label>
+              <label><input type="checkbox" id="dji-3"><span>Mode vol : Normal</span></label>
+              <label><input type="checkbox" id="dji-4"><span>Paramétrage des joysticks (mode 2 préconisé)</span></label>
+              <label><input type="checkbox" id="dji-5"><span>Limiteur d'altitude (max 120 m)</span></label>
+              <label><input type="checkbox" id="dji-6"><span>Mode Fail Safe configuré sur RTH</span></label>
+              <label><input type="checkbox" id="dji-7"><span>Adapter la hauteur du RTH à l'environnement</span></label>
+              <label><input type="checkbox" id="dji-8"><span>Détection d'obstacles configurée :</span></label>
+              <label class="subtask"><input type="checkbox" id="dji-9"><span>Horizontal : Arrêt = 5 m, Alerte = 10 m</span></label>
+              <label class="subtask"><input type="checkbox" id="dji-10"><span>Ascendant : Arrêt = 5 m, Alerte = 5 m</span></label>
+              <label class="subtask"><input type="checkbox" id="dji-11"><span>Descendant : Arrêt = 0,5 m, Alerte = 1 m</span></label>
+              <label><input type="checkbox" id="dji-12"><span>Vérification signal GPS : force du signal et nombre de satellites captés</span></label>
+              <label><input type="checkbox" id="dji-13"><span>Formatage carte SD et réglage paramètre caméra</span></label>
+              <label><input type="checkbox" id="dji-14"><span>Transmission vidéo et radio stable</span></label>
+              <label><input type="checkbox" id="dji-15"><span>Tests de coupure des moteurs au sol</span></label>
+            </div>
+          </li>
+
+          <li class="paper-row">
+            <div class="paper-category">Après décollage</div>
+            <div class="paper-tasks">
+              <label><input type="checkbox" id="post-1"><span>Vérifier la fluidité de déplacement autour de chaque axe</span></label>
+            </div>
+          </li>
+        </ul>
+      </article>
 
       <button type="button" class="secondary" id="resetChecklist" style="margin-top: 1rem;">
         Réinitialiser les cases
@@ -464,7 +441,8 @@
 
     document.querySelectorAll("[data-checklist-action]").forEach(button => {
       button.addEventListener("click", () => {
-        const list = button.closest(".card").querySelector(".checklist");
+        const card = button.closest(".card");
+        const list = card.querySelector(".checklist");
         const checked = button.dataset.checklistAction === "select";
         list.querySelectorAll('input[type="checkbox"]').forEach(input => { input.checked = checked; });
         sauvegarderChecklist();
