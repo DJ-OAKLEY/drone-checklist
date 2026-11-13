@@ -26,82 +26,228 @@
 
     <!-- Onglet Checklist -->
     <section id="checklistTab" class="tab-content active">
-      <article class="card paper-card">
-        <h2>Checklist prévol</h2>
-
-        <div class="checklist-actions">
-          <button type="button" class="secondary" data-checklist-action="select">Tout sélectionner</button>
-          <button type="button" class="secondary" data-checklist-action="deselect">Tout désélectionner</button>
-        </div>
-
-        <ul class="checklist paper-checklist">
-          <li class="paper-row paper-row-header">
-            <div class="paper-category">Catégorie</div>
-            <div class="paper-tasks">Tâche</div>
-          </li>
-
-          <li class="paper-row">
-            <div class="paper-category">Sécurité et environnement</div>
-            <div class="paper-tasks">
-              <label><input type="checkbox" id="env-1"><span>Évaluer les paramètres météo : vent &lt; 43 km/h, risque de pluie, neige ou givre et températures externes : -10°C &lt; T &lt; 40°C</span></label>
-              <label><input type="checkbox" id="env-2"><span>Définir le volume d'évolution</span></label>
-              <label><input type="checkbox" id="env-3"><span>Définir la zone d'exclusion des tiers</span></label>
-              <label><input type="checkbox" id="env-4"><span>Vérifier l'absence d'obstacles et de personnes dans la zone de vol</span></label>
+      
+      <div class="checklist-grid">
+        
+        <!-- PHASE 1 : INSPECTION VISUELLE -->
+        <article class="checklist-card">
+          <div class="card-header">
+            <h2>Inspection visuelle</h2>
+            <div class="card-actions">
+              <button type="button" class="btn-small" data-action="select" data-card="0">Tout ✓</button>
+              <button type="button" class="btn-small" data-action="deselect" data-card="0">Tout ✗</button>
             </div>
-          </li>
-
-          <li class="paper-row">
-            <div class="paper-category">Vérification de l'appareil</div>
-            <div class="paper-tasks">
-              <label><input type="checkbox" id="app-1"><span>Structure : absence de fissures ou cassures</span></label>
-              <label><input type="checkbox" id="app-2"><span>Hélices et moteurs : état, fixations, moteurs tournent librement</span></label>
-              <label><input type="checkbox" id="app-3"><span>Système de détection : propreté et état des caméras et capteurs</span></label>
-              <label><input type="checkbox" id="app-4"><span>Vérifier si la protection de la nacelle de caméra est retirée</span></label>
-              <label><input type="checkbox" id="app-5"><span>Vérifier le cache de l'emplacement de la carte SD</span></label>
-              <label><input type="checkbox" id="app-6"><span>Batterie : état, corrosion, gonflement, fissures ; installation correcte</span></label>
+          </div>
+          
+          <div class="checklist-items">
+            <div class="item-group">
+              <div class="item-title">Fuselage</div>
+              <ul class="checklist" data-card="0">
+                <li><input type="checkbox" id="insp-1"><label for="insp-1">Fissures ou jeu.</label></li>
+              </ul>
             </div>
-          </li>
 
-          <li class="paper-row">
-            <div class="paper-category">Vérification de la radiocommande</div>
-            <div class="paper-tasks">
-              <label><input type="checkbox" id="rc-1"><span>Niveau de charge &gt; 25%</span></label>
-              <label><input type="checkbox" id="rc-2"><span>Joystick : fonctionnement des joysticks, boutons et molettes, positionnement des antennes</span></label>
+            <div class="item-group">
+              <div class="item-title">Hélices</div>
+              <ul class="checklist" data-card="0">
+                <li><input type="checkbox" id="insp-2"><label for="insp-2">Rotation fluide.</label></li>
+                <li><input type="checkbox" id="insp-3"><label for="insp-3">Sans dommage.</label></li>
+                <li><input type="checkbox" id="insp-4"><label for="insp-4">Verrous en place.</label></li>
+              </ul>
             </div>
-          </li>
 
-          <li class="paper-row">
-            <div class="paper-category">Application DJI Pilot 2</div>
-            <div class="paper-tasks">
-              <label><input type="checkbox" id="dji-1"><span>Allumer la radiocommande puis le drone</span></label>
-              <label><input type="checkbox" id="dji-2"><span>Mise à jour du module de point de décollage</span></label>
-              <label><input type="checkbox" id="dji-3"><span>Mode vol : Normal</span></label>
-              <label><input type="checkbox" id="dji-4"><span>Paramétrage des joysticks (mode 2 préconisé)</span></label>
-              <label><input type="checkbox" id="dji-5"><span>Limiteur d'altitude (max 120 m)</span></label>
-              <label><input type="checkbox" id="dji-6"><span>Mode Fail Safe configuré sur RTH</span></label>
-              <label><input type="checkbox" id="dji-7"><span>Adapter la hauteur du RTH à l'environnement</span></label>
-              <label><input type="checkbox" id="dji-8"><span>Détection d'obstacles configurée :</span></label>
-              <label class="subtask"><input type="checkbox" id="dji-9"><span>Horizontal : Arrêt = 5 m, Alerte = 10 m</span></label>
-              <label class="subtask"><input type="checkbox" id="dji-10"><span>Ascendant : Arrêt = 5 m, Alerte = 5 m</span></label>
-              <label class="subtask"><input type="checkbox" id="dji-11"><span>Descendant : Arrêt = 0,5 m, Alerte = 1 m</span></label>
-              <label><input type="checkbox" id="dji-12"><span>Vérification signal GPS : force du signal et nombre de satellites captés</span></label>
-              <label><input type="checkbox" id="dji-13"><span>Formatage carte SD et réglage paramètre caméra</span></label>
-              <label><input type="checkbox" id="dji-14"><span>Transmission vidéo et radio stable</span></label>
-              <label><input type="checkbox" id="dji-15"><span>Tests de coupure des moteurs au sol</span></label>
+            <div class="item-group">
+              <div class="item-title">Fixations</div>
+              <ul class="checklist" data-card="0">
+                <li><input type="checkbox" id="insp-5"><label for="insp-5">Vis et fixations serrées.</label></li>
+                <li><input type="checkbox" id="insp-6"><label for="insp-6">Câbles en bon état.</label></li>
+              </ul>
             </div>
-          </li>
+          </div>
+        </article>
 
-          <li class="paper-row">
-            <div class="paper-category">Après décollage</div>
-            <div class="paper-tasks">
-              <label><input type="checkbox" id="post-1"><span>Vérifier la fluidité de déplacement autour de chaque axe</span></label>
+        <!-- PHASE 2 : CALIBRATION BOUSSOLE -->
+        <article class="checklist-card">
+          <div class="card-header">
+            <h2>Calibration boussole</h2>
+            <div class="card-actions">
+              <button type="button" class="btn-small" data-action="select" data-card="1">Tout ✓</button>
+              <button type="button" class="btn-small" data-action="deselect" data-card="1">Tout ✗</button>
             </div>
-          </li>
-        </ul>
-      </article>
+          </div>
 
-      <button type="button" class="secondary" id="resetChecklist" style="margin-top: 1rem;">
-        Réinitialiser les cases
+          <div class="checklist-items">
+            <div class="item-group">
+              <div class="item-title">Préparation</div>
+              <ul class="checklist" data-card="1">
+                <li><input type="checkbox" id="comp-1"><label for="comp-1">Retirer objets métalliques.</label></li>
+                <li><input type="checkbox" id="comp-2"><label for="comp-2">Allumer la radiocommande.</label></li>
+                <li><input type="checkbox" id="comp-3"><label for="comp-3">Drone dehors, surface non métallique.</label></li>
+              </ul>
+            </div>
+
+            <div class="item-group">
+              <div class="item-title">Calibration</div>
+              <ul class="checklist" data-card="1">
+                <li><input type="checkbox" id="comp-4"><label for="comp-4">6 satellites minimum.</label></li>
+                <li><input type="checkbox" id="comp-5"><label for="comp-5">Lancer calibration.</label></li>
+                <li><input type="checkbox" id="comp-6"><label for="comp-6">Rotation horaire 5-7 sec.</label></li>
+                <li><input type="checkbox" id="comp-7"><label for="comp-7">Incliner et répéter.</label></li>
+                <li><input type="checkbox" id="comp-8"><label for="comp-8">Calibration terminée.</label></li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- PHASE 3 : AVANT DÉCOLLAGE -->
+        <article class="checklist-card">
+          <div class="card-header">
+            <h2>Avant décollage</h2>
+            <div class="card-actions">
+              <button type="button" class="btn-small" data-action="select" data-card="2">Tout ✓</button>
+              <button type="button" class="btn-small" data-action="deselect" data-card="2">Tout ✗</button>
+            </div>
+          </div>
+
+          <div class="checklist-items">
+            <div class="item-group">
+              <div class="item-title">Batterie</div>
+              <ul class="checklist" data-card="2">
+                <li><input type="checkbox" id="pre-1"><label for="pre-1">Batteries pleines.</label></li>
+              </ul>
+            </div>
+
+            <div class="item-group">
+              <div class="item-title">Radiocommande</div>
+              <ul class="checklist" data-card="2">
+                <li><input type="checkbox" id="pre-2"><label for="pre-2">Pas d'interférences.</label></li>
+              </ul>
+            </div>
+
+            <div class="item-group">
+              <div class="item-title">Drone</div>
+              <ul class="checklist" data-card="2">
+                <li><input type="checkbox" id="pre-3"><label for="pre-3">Boussole calibrée.</label></li>
+                <li><input type="checkbox" id="pre-4"><label for="pre-4">Équipement installé.</label></li>
+                <li><input type="checkbox" id="pre-5"><label for="pre-5">Commandes neutres.</label></li>
+                <li><input type="checkbox" id="pre-6"><label for="pre-6">Identification OK.</label></li>
+              </ul>
+            </div>
+
+            <div class="item-group">
+              <div class="item-title">Zone de vol</div>
+              <ul class="checklist" data-card="2">
+                <li><input type="checkbox" id="pre-7"><label for="pre-7">Position sécurisée.</label></li>
+                <li><input type="checkbox" id="pre-8"><label for="pre-8">Espace aérien vérifié.</label></li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- PHASE 4 : PENDANT LE VOL -->
+        <article class="checklist-card">
+          <div class="card-header">
+            <h2>Pendant le vol</h2>
+            <div class="card-actions">
+              <button type="button" class="btn-small" data-action="select" data-card="3">Tout ✓</button>
+              <button type="button" class="btn-small" data-action="deselect" data-card="3">Tout ✗</button>
+            </div>
+          </div>
+
+          <div class="checklist-items">
+            <div class="item-group">
+              <div class="item-title">Pilotage</div>
+              <ul class="checklist" data-card="3">
+                <li><input type="checkbox" id="fly-1"><label for="fly-1">Doigts sur la radio.</label></li>
+                <li><input type="checkbox" id="fly-2"><label for="fly-2">Drone à vue.</label></li>
+              </ul>
+            </div>
+
+            <div class="item-group">
+              <div class="item-title">Altitude</div>
+              <ul class="checklist" data-card="3">
+                <li><input type="checkbox" id="fly-3"><label for="fly-3">Altitude optimale.</label></li>
+              </ul>
+            </div>
+
+            <div class="item-group">
+              <div class="item-title">Sécurité</div>
+              <ul class="checklist" data-card="3">
+                <li><input type="checkbox" id="fly-4"><label for="fly-4">Éviter obstacles.</label></li>
+                <li><input type="checkbox" id="fly-5"><label for="fly-5">Pas de gêne secours.</label></li>
+                <li><input type="checkbox" id="fly-6"><label for="fly-6">Aéronef habité : atterrir.</label></li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- PHASE 5 : ATTERRISSAGE -->
+        <article class="checklist-card">
+          <div class="card-header">
+            <h2>Atterrissage</h2>
+            <div class="card-actions">
+              <button type="button" class="btn-small" data-action="select" data-card="4">Tout ✓</button>
+              <button type="button" class="btn-small" data-action="deselect" data-card="4">Tout ✗</button>
+            </div>
+          </div>
+
+          <div class="checklist-items">
+            <div class="item-group">
+              <div class="item-title">Zone</div>
+              <ul class="checklist" data-card="4">
+                <li><input type="checkbox" id="land-1"><label for="land-1">Zone inspectée.</label></li>
+                <li><input type="checkbox" id="land-2"><label for="land-2">Distance obstacles.</label></li>
+              </ul>
+            </div>
+
+            <div class="item-group">
+              <div class="item-title">Procédure</div>
+              <ul class="checklist" data-card="4">
+                <li><input type="checkbox" id="land-3"><label for="land-3">Alimentation coupée.</label></li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- PHASE 6 : APRÈS LE VOL -->
+        <article class="checklist-card">
+          <div class="card-header">
+            <h2>Après le vol</h2>
+            <div class="card-actions">
+              <button type="button" class="btn-small" data-action="select" data-card="5">Tout ✓</button>
+              <button type="button" class="btn-small" data-action="deselect" data-card="5">Tout ✗</button>
+            </div>
+          </div>
+
+          <div class="checklist-items">
+            <div class="item-group">
+              <div class="item-title">Procédure</div>
+              <ul class="checklist" data-card="5">
+                <li><input type="checkbox" id="post-1"><label for="post-1">Tour contrôle informée.</label></li>
+                <li><input type="checkbox" id="post-2"><label for="post-2">Équipements éteints.</label></li>
+              </ul>
+            </div>
+
+            <div class="item-group">
+              <div class="item-title">Inspection</div>
+              <ul class="checklist" data-card="5">
+                <li><input type="checkbox" id="post-3"><label for="post-3">Inspection dommages.</label></li>
+              </ul>
+            </div>
+
+            <div class="item-group">
+              <div class="item-title">Batterie</div>
+              <ul class="checklist" data-card="5">
+                <li><input type="checkbox" id="post-4"><label for="post-4">Batteries chargées.</label></li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <button type="button" class="btn-reset" id="resetChecklist">
+        Réinitialiser toutes les cases
       </button>
     </section>
 
@@ -124,10 +270,22 @@
         </div>
       </article>
 
-      <article class="card">
+                  <article class="card">
         <h2>Enregistrer un vol</h2>
         <form id="flightForm">
           <div class="form-grid">
+            <div class="form-group">
+              <label for="droneBrand">Marque du drone *</label>
+              <input type="text" id="droneBrand" placeholder="Ex. DJI" required>
+            </div>
+            <div class="form-group">
+              <label for="droneModel">Modèle du drone *</label>
+              <input type="text" id="droneModel" placeholder="Ex. Air 3S" required>
+            </div>
+            <div class="form-group">
+              <label for="droneSerial">N° de série *</label>
+              <input type="text" id="droneSerial" placeholder="Ex. 1CCDA1234567" required>
+            </div>
             <div class="form-group">
               <label for="location">Lieu *</label>
               <input type="text" id="location" required>
@@ -167,7 +325,17 @@
         <div class="table-wrapper" id="tableContainer" style="display: none;">
           <table>
             <thead>
-              <tr><th>Lieu</th><th>Date</th><th>Début</th><th>Fin</th><th>Désignation</th><th>Commentaires</th><th>Action</th></tr>
+              <tr>
+                <th>Drone</th>
+                <th>N° Série</th>
+                <th>Lieu</th>
+                <th>Date</th>
+                <th>Début</th>
+                <th>Fin</th>
+                <th>Désignation</th>
+                <th>Commentaires</th>
+                <th>Action</th>
+              </tr>
             </thead>
             <tbody id="flightHistory"></tbody>
           </table>
@@ -182,283 +350,6 @@
 
   <footer>Checklist générique à adapter avant utilisation.</footer>
 
-  <script>
-    const tabButtons = document.querySelectorAll(".tab-button");
-    const tabContents = document.querySelectorAll(".tab-content");
-    const form = document.getElementById("flightForm");
-    const historyBody = document.getElementById("flightHistory");
-    const clearHistoryButton = document.getElementById("clearHistory");
-    const resetChecklistButton = document.getElementById("resetChecklist");
-    const exportButton = document.getElementById("exportData");
-    const successMessage = document.getElementById("successMessage");
-    const dropboxTokenInput = document.getElementById("dropboxToken");
-    const saveTokenButton = document.getElementById("saveToken");
-    const clearTokenButton = document.getElementById("clearToken");
-    const loadingMessage = document.getElementById("loadingMessage");
-    const tableContainer = document.getElementById("tableContainer");
-
-    const STORAGE_FLIGHTS = "droneFlights";
-    const STORAGE_CHECKLIST = "droneChecklist";
-    const STORAGE_TOKEN = "dropboxToken";
-    let flights = JSON.parse(localStorage.getItem(STORAGE_FLIGHTS)) || [];
-
-    tabButtons.forEach(button => {
-      button.addEventListener("click", () => {
-        const targetId = button.dataset.tab;
-        tabButtons.forEach(btn => btn.classList.remove("active"));
-        tabContents.forEach(content => content.classList.remove("active"));
-        button.classList.add("active");
-        document.getElementById(targetId).classList.add("active");
-        if (targetId === "flightsTab") chargerVols();
-      });
-    });
-
-    function securiserTexte(texte) {
-      return String(texte)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-    }
-
-    function afficherSucces(message) {
-      successMessage.textContent = "✓ " + message;
-      successMessage.classList.add("show");
-      setTimeout(() => successMessage.classList.remove("show"), 3000);
-    }
-
-    function chargerToken() {
-      const token = localStorage.getItem(STORAGE_TOKEN);
-      if (token) dropboxTokenInput.value = token;
-    }
-
-    saveTokenButton.addEventListener("click", () => {
-      const token = dropboxTokenInput.value.trim();
-      if (!token) {
-        alert("Veuillez entrer un token Dropbox.");
-        return;
-      }
-      localStorage.setItem(STORAGE_TOKEN, token);
-      afficherSucces("Token Dropbox enregistré !");
-    });
-
-    clearTokenButton.addEventListener("click", () => {
-      if (confirm("Êtes-vous sûr de vouloir effacer le token ?")) {
-        localStorage.removeItem(STORAGE_TOKEN);
-        dropboxTokenInput.value = "";
-        afficherSucces("Token effacé.");
-      }
-    });
-
-    function obtenirToken() {
-      return localStorage.getItem(STORAGE_TOKEN);
-    }
-
-    async function appelDropbox(methode, chemin, contenu = null) {
-      const token = obtenirToken();
-      if (!token) {
-        throw new Error("Token Dropbox non configuré. Allez dans l'onglet Historique et configurez votre token.");
-      }
-
-      if (methode === "POST" && contenu) {
-        const response = await fetch("https://content.dropboxapi.com/2/files/upload", {
-          method: "POST",
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            "Dropbox-API-Arg": JSON.stringify({
-              path: chemin,
-              mode: { ".tag": "overwrite" },
-              autorename: false,
-              mute: false,
-              strict_conflict: false
-            }),
-            "Content-Type": "application/octet-stream"
-          },
-          body: contenu
-        });
-        if (!response.ok) throw new Error(`Erreur Dropbox: ${response.status}`);
-        return response.json();
-      }
-
-      if (methode === "GET") {
-        const response = await fetch("https://content.dropboxapi.com/2/files/download", {
-          method: "POST",
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            "Dropbox-API-Arg": JSON.stringify({ path: chemin })
-          }
-        });
-        if (response.status === 409) return null;
-        if (!response.ok) throw new Error(`Erreur Dropbox: ${response.status}`);
-        return JSON.parse(await response.text());
-      }
-
-      if (methode === "DELETE") {
-        const response = await fetch("https://www.dropboxapi.com/2/files/delete_v2", {
-          method: "POST",
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ path: chemin })
-        });
-        if (!response.ok) throw new Error(`Erreur Dropbox: ${response.status}`);
-        return response.json();
-      }
-    }
-
-    async function chargerVols() {
-      loadingMessage.style.display = "block";
-      tableContainer.style.display = "none";
-      try {
-        if (!obtenirToken()) {
-          historyBody.innerHTML = '<tr><td colspan="7" class="empty-message">⚠️ Configurez d’abord votre token Dropbox en haut de cette page.</td></tr>';
-          return;
-        }
-        flights = await appelDropbox("GET", "/drone/historique-vols.json") || [];
-        afficherVols();
-      } catch (erreur) {
-        console.error(erreur);
-        historyBody.innerHTML = `<tr><td colspan="7" class="empty-message">❌ Erreur : ${securiserTexte(erreur.message)}</td></tr>`;
-      } finally {
-        loadingMessage.style.display = "none";
-        tableContainer.style.display = "block";
-      }
-    }
-
-    function afficherVols() {
-      historyBody.innerHTML = "";
-      if (flights.length === 0) {
-        historyBody.innerHTML = '<tr><td colspan="7" class="empty-message">Aucun vol enregistré.</td></tr>';
-        return;
-      }
-      flights.forEach((vol, index) => {
-        const ligne = document.createElement("tr");
-        ligne.innerHTML = `
-          <td>${securiserTexte(vol.lieu)}</td>
-          <td>${securiserTexte(vol.date)}</td>
-          <td>${securiserTexte(vol.heureDebut)}</td>
-          <td>${securiserTexte(vol.heureFin)}</td>
-          <td>${securiserTexte(vol.designation)}</td>
-          <td>${securiserTexte(vol.commentaires || "-")}</td>
-          <td><button type="button" class="danger" data-delete="${index}" style="padding:.4rem .7rem;font-size:.85rem">Supprimer</button></td>`;
-        historyBody.appendChild(ligne);
-      });
-      historyBody.querySelectorAll("[data-delete]").forEach(button => {
-        button.addEventListener("click", () => supprimerVol(Number(button.dataset.delete)));
-      });
-    }
-
-    form.addEventListener("submit", async event => {
-      event.preventDefault();
-      const heureDebut = document.getElementById("startTime").value;
-      const heureFin = document.getElementById("endTime").value;
-      if (heureFin < heureDebut) {
-        alert("L'heure de fin doit être postérieure à l'heure de début.");
-        return;
-      }
-      const vol = {
-        lieu: document.getElementById("location").value.trim(),
-        date: document.getElementById("date").value,
-        heureDebut,
-        heureFin,
-        designation: document.getElementById("designation").value.trim(),
-        commentaires: document.getElementById("comments").value.trim()
-      };
-      flights.push(vol);
-      try {
-        await appelDropbox("POST", "/drone/historique-vols.json", JSON.stringify(flights, null, 2));
-        form.reset();
-        afficherSucces("Vol enregistré dans Dropbox ✓");
-        afficherVols();
-      } catch (erreur) {
-        console.error(erreur);
-        flights.pop();
-        alert("Erreur : " + erreur.message);
-      }
-    });
-
-    async function supprimerVol(index) {
-      if (!confirm("Supprimer ce vol ?")) return;
-      const volsAvantSuppression = [...flights];
-      flights.splice(index, 1);
-      try {
-        await appelDropbox("POST", "/drone/historique-vols.json", JSON.stringify(flights, null, 2));
-        afficherSucces("Vol supprimé.");
-        afficherVols();
-      } catch (erreur) {
-        console.error(erreur);
-        flights = volsAvantSuppression;
-        alert("Erreur : " + erreur.message);
-      }
-    }
-
-    clearHistoryButton.addEventListener("click", async () => {
-      if (flights.length === 0) return;
-      if (!confirm("Êtes-vous sûr ? Cette action est irréversible.")) return;
-      const volsAvantEffacement = flights;
-      flights = [];
-      try {
-        await appelDropbox("POST", "/drone/historique-vols.json", JSON.stringify([], null, 2));
-        afficherSucces("Historique effacé.");
-        afficherVols();
-      } catch (erreur) {
-        console.error(erreur);
-        flights = volsAvantEffacement;
-        alert("Erreur : " + erreur.message);
-      }
-    });
-
-    exportButton.addEventListener("click", () => {
-      const donnees = { vols: flights, dateExport: new Date().toLocaleString("fr-FR") };
-      const blob = new Blob([JSON.stringify(donnees, null, 2)], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `historique-vols-${new Date().toISOString().split("T")[0]}.json`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      afficherSucces("Données téléchargées !");
-    });
-
-    const checklistInputs = document.querySelectorAll('.checklist input[type="checkbox"]');
-
-    function sauvegarderChecklist() {
-      const etat = {};
-      checklistInputs.forEach(input => { etat[input.id] = input.checked; });
-      localStorage.setItem(STORAGE_CHECKLIST, JSON.stringify(etat));
-    }
-
-    function chargerChecklist() {
-      const etat = JSON.parse(localStorage.getItem(STORAGE_CHECKLIST)) || {};
-      checklistInputs.forEach(input => { input.checked = etat[input.id] || false; });
-    }
-
-    checklistInputs.forEach(input => input.addEventListener("change", sauvegarderChecklist));
-
-    document.querySelectorAll("[data-checklist-action]").forEach(button => {
-      button.addEventListener("click", () => {
-        const card = button.closest(".card");
-        const list = card.querySelector(".checklist");
-        const checked = button.dataset.checklistAction === "select";
-        list.querySelectorAll('input[type="checkbox"]').forEach(input => { input.checked = checked; });
-        sauvegarderChecklist();
-      });
-    });
-
-    resetChecklistButton.addEventListener("click", () => {
-      if (confirm("Décocher toutes les cases ?")) {
-        checklistInputs.forEach(input => { input.checked = false; });
-        sauvegarderChecklist();
-        afficherSucces("Checklist réinitialisée.");
-      }
-    });
-
-    chargerToken();
-    chargerChecklist();
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
